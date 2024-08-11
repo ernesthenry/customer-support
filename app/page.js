@@ -1,151 +1,142 @@
 'use client'
+import { Button, Box, Typography } from '@mui/material'
 
-import { Box, Button, Stack, TextField } from '@mui/material'
-import { useState, useRef, useEffect } from 'react'
 
-export default function Home() {
-  const [messages, setMessages] = useState([
-    {
-      role: 'assistant',
-      content: "Hi! I'm the Headstarter support assistant. How can I help you today?",
-    },
-  ])
-  const [message, setMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const messagesEndRef = useRef(null)
+import { useRouter } from 'next/navigation'
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
 
-  const sendMessage = async () => {
-    if (!message.trim() || isLoading) return;
-    setIsLoading(true)
-  
-    setMessage('')
-    setMessages((messages) => [
-      ...messages,
-      { role: 'user', content: message },
-      { role: 'assistant', content: '' },
-    ])
+export default function homepage() {
+    const router = useRouter()
 
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify([...messages, { role: 'user', content: message }]),
-      })
-  
-      if (!response.ok) {
-        throw new Error('Network response was not ok')
-      }
-  
-      const reader = response.body.getReader()
-      const decoder = new TextDecoder()
-  
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-        const text = decoder.decode(value, { stream: true })
-        setMessages((messages) => {
-          let lastMessage = messages[messages.length - 1]
-          let otherMessages = messages.slice(0, messages.length - 1)
-          return [
-            ...otherMessages,
-            { ...lastMessage, content: lastMessage.content + text },
-          ]
-        })
-      }
-    } catch (error) {
-      console.error('Error:', error)
-      setMessages((messages) => [
-        ...messages,
-        { role: 'assistant', content: "I'm sorry, but I encountered an error. Please try again later." },
-      ])
+    const goToAssistant=() =>{
+        router.push ('/Assistant')
     }
-    setIsLoading(false)
-  }
-
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault()
-      sendMessage()
-    }
-  }
-
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages])
 
 
-  return (
+return (
     <Box
-      width="100vw"
-      height="100vh"
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
+    width="100vw"
+    height="100vh"
+    display="flex"
+    flexDirection="column"
+    justifyContent="flex-start"
+    alignItems="center"
+    backgroundColor="#FFFFFF"
+    p={39}
+    
     >
-      <Stack
-        direction={'column'}
-        width="500px"
-        height="700px"
-        border="1px solid black"
-        p={2}
-        spacing={3}
-      >
-        <Stack
-          direction={'column'}
-          spacing={2}
-          flexGrow={1}
-          overflow="auto"
-          maxHeight="100%"
+        
+    <Box 
+    
+        display= "flex"
+        
+        alignItems= "flex-end"
+       
+        
+        
+      
+       
+
+ 
+    >
+       
+
+       
+        <Typography variant='h4'
+        component='span'
+       
+        sx={{
+           
+            fontFamily: 'sans-serif',
+            fontStyle:'normal',
+            
+            fontWeight: '250',
+            fontSize:'40px',
+            lineHeight:'60px',
+            color: '#000000',
+            marginRight:'1px',
+            justifyContent:'center',
+
+        }}
         >
-          {messages.map((message, index) => (
-            <Box
-              key={index}
-              display="flex"
-              justifyContent={
-                message.role === 'assistant' ? 'flex-start' : 'flex-end'
-              }
-            >
-              <Box
-                bgcolor={
-                  message.role === 'assistant'
-                    ? 'primary.main'
-                    : 'secondary.main'
-                }
-                color="white"
-                borderRadius={16}
-                p={3}
-              >
-                {message.content}
-              </Box>
-            </Box>
-          ))}
-          <div ref={messagesEndRef} />
-        </Stack>
-        <Stack direction={'row'} spacing={2}>
-        <TextField
-            label="Message"
-            fullWidth
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={handleKeyPress}
-            disabled={isLoading}
-          />
-          <Button 
-            variant="contained" 
-            onClick={sendMessage}
-            disabled={isLoading}
-          >
-            {isLoading ? 'Sending...' : 'Send'}
-          </Button>
-        </Stack>
-      </Stack>
+            Welcome to
+        </Typography>
+
+        <Typography variant='h1'
+        component='span'
+        sx={{
+
+            fontFamily: 'sans-serif',
+            fontStyle:'normal',
+            lineHeight:'100px',
+            fontSize:'100px',
+            color: '#273F52',
+            justifyContent:'center',
+            fontWeight: '275',
+           
+
+        }}
+        >
+            TA
+        </Typography>
+        
+    
+    
+    
+           
     </Box>
-  )
+    <Box>
+        <Typography
+        sx={{
+
+            fontFamily: 'sans-serif',
+            fontStyle:'normal',
+            lineHeight:'30px',
+            fontSize:'20px',
+            color: ' #BCC3C7',
+            justifyContent:'center',
+            fontWeight:'300',
+            width:'192px',
+            height:'30px',
+            left:'522px',
+            top:'428px',
+            
+        }}
+        
+        >
+            Get instant support
+        </Typography>
+    </Box>
+
+
+
+
+    <Button onClick={goToAssistant}
+    variant ="contained"
+    sx={{
+        width: "157px",
+        height: "45px",
+        position:'absolute',
+        justifyContent: 'center',
+        borderRadius: "10px",
+        background: '#009BE1',
+        boxShadow: ' 0px 4px 4px rgba(0, 0, 0, 0.25)',
+        bottom: '150px',
+
+        '&:hover':{
+            width: "157px",
+            height: "45px",
+            background: '#38AFE7',
+            border: '1px solid #FFFFFF',
+            boxShadow: ' 0px 4px 4px rgba(0, 0, 0, 0.25)',
+            borderRadius: '10px',
+            
+        }
+        
+    }}
+    
+    
+    >Get Started</Button>
+    </Box>
+)
 }
