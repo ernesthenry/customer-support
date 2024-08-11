@@ -131,10 +131,6 @@ export default function Home() {
 
   return (
     <>
-    {/* <div>
-      <h1>Welcome to the App</h1>
-      <Link href="/signup">Sign Up</Link>
-    </div> */}
     <Box
       width="100vw"
       height="100vh"
