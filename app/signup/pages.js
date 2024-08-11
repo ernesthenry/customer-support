@@ -1,7 +1,9 @@
+'use client';
+
 import { useState } from 'react';
-import { auth } from '../../firebase'; // Adjust the import path based on your file structure
+import { auth } from '../firebase.js'; 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function SignUp() {
   const [email, setEmail] = useState('');

@@ -4,7 +4,8 @@ import { Box, Button, Stack, TextField } from '@mui/material';
 import { useState, useRef, useEffect } from 'react';
 import { auth, db } from './firebase.js';
 import { collection, addDoc, query, orderBy, onSnapshot } from 'firebase/firestore';
-import franc from 'franc-min';
+import { franc } from 'franc-min';
+import Link from 'next/link';
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -129,6 +130,11 @@ export default function Home() {
   }, [messages]);
 
   return (
+    <>
+    {/* <div>
+      <h1>Welcome to the App</h1>
+      <Link href="/signup">Sign Up</Link>
+    </div> */}
     <Box
       width="100vw"
       height="100vh"
@@ -195,5 +201,6 @@ export default function Home() {
         </Stack>
       </Stack>
     </Box>
+    </>
   );
 }
