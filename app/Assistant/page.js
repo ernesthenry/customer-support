@@ -102,7 +102,7 @@ export default function Home() {
         <Button  //start new chat
             variant="contained" 
             //onClick={}
-            disabled={isLoading}
+            //disabled={isLoading}
             
             sx={{
               backgroundColor:'transparent',
@@ -110,12 +110,13 @@ export default function Home() {
               top:'35px',
               fontSize: '15px',
               color:'#34495E',
+              borderRadius: "10px",
 
               '&:hover': {
-                width: "134px",
+                width: "120px",
                 height: "43px",
                 borderRadius: "10px",
-                background:'#2E4A60',
+                backgroundColor:'#2E4A60',
                 border: '1px solid #EBF0F1',
                 boxShadow:'0px 4px 4px rgba(0, 0, 0, 0.25)',
                 color:'#ECF0F1',
@@ -128,15 +129,21 @@ export default function Home() {
           </Button>
           </Box>
 
-
+        
       <Stack
         direction={'column'}
-        width="1201px"
-        height="832px"
+        width="70%"
+        height="90%"
         paddingBottom="80px"
         p={2}
         spacing={3}
+        justifyContent="right"
+        sx={{
+          position: 'relative',
+        }}
+       
       >
+      
         <Stack
           direction={'column'}
           spacing={2}
@@ -144,14 +151,23 @@ export default function Home() {
           overflow="auto"
           maxHeight="100%"
 
-          
+          sx={{
+            '&::-webkit-scrollbar': {
+              width: '8px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background:'#ECF0F1'
+            },
+            '&::-webkit-scrollbar-thumb': {
+              background:'#BDC3C7',
+              borderRadius:'10px',
+              
+            },
+            
+            paddingRight:'150px',
+             
+          }}
         >
-
-        
-         
-
-
-
 
           {messages.map((message, index) => (
             <Box
@@ -159,36 +175,19 @@ export default function Home() {
               display="flex"
               justifyContent={
                 message.role === 'assistant' ? 'flex-start' : 'flex-end'
-              }
-              
-                
-              
+              }   
             >
               <Box
-                bgcolor={
-                  message.role === 'assistant'
-                    ? '#ECF0F1'
-                    : '#009BE1'
-                }
-               borderRadius={
-                 message.role === 'assistant'
-                ? '15px'
-                : '20px'
-               }
-               width={
-                message.role === 'assistant'
-               ? '459px'
-               : '300px'
-              }
-             
+              sx={{
+              bgcolor: message.role === 'assistant' ? '#ECF0F1' : '#009BE1',
+              borderRadius:  message.role === 'assistant' ? '15px'  : '20px',
+              width: message.role === 'assistant' ? '459px' : '300px',
+              color: message.role === 'assistant' ? "#34495E"  : "#FFFFFF",
+              p: 2,
+              wordWrap: 'break-word',
+              overflowWrap: 'break-word',
               
-              color={
-                message.role === 'assistant'
-                ? "#34495E"
-                : "#FFFFFF"
-              }
-
-                p={2}
+            }}
                 
               >
                 {message.content}
@@ -198,7 +197,13 @@ export default function Home() {
           <div ref={messagesEndRef} />
         </Stack>
         
-        <Stack  justifyContent="center" direction="row" alignItems="center"  spacing= {2} width="100%">
+       
+        
+        <Stack  justifyContent="center" direction="row" alignItems="center"  spacing= {.1} width="calc(100% - 24px)" 
+        sx={{
+          position: 'relative',
+          
+        }} >
 
         <TextField
             label="Message"
@@ -211,12 +216,12 @@ export default function Home() {
             sx: {
               boxSizing:'border-box',
               width:"688.11px",
-              height:"60px",
               background:'#EBF0F1',
               border:'px solid #BCC3C7',
               borderRadius:"20px",
               justifyContent:'center',
               position: 'relative', 
+              paddingRight: '110px',
               '$ .MuiOutlinedInput-root': {
                 '& fieldset':{
                   borderColor: '#BDC3C7',
@@ -224,11 +229,8 @@ export default function Home() {
 
               }
             },
-            
-            
+
             }}
-
-
 
           />
 
@@ -238,19 +240,21 @@ export default function Home() {
             variant="contained" 
             onClick={sendMessage}
             disabled={isLoading}
+            
+            
             sx={{
               mt: 2,
-              width: "74.04px",
+              
               height: "31.88px",
               borderRadius: "20px",
               backgroundColor: '#38AFE7',
               boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
               boxShadow: '0px 4px 4px color(display-p3 0.000 0.000 0.000 / 0.25)',
               background: '(display-p3 0.365 0.678 0.886)',
-              position: 'absolute',
-           
-              
-              
+              position: 'fixed',
+              bottom: '8.5%',
+              right:'38%',
+
               '&:hover': {
                 background: '#009BE1',
                 backgroundColor: '(display-p3 0.204 0.596 0.859)',
@@ -265,7 +269,7 @@ export default function Home() {
               marginleft: '10px',
             }}
           >
-            {isLoading ? 'Sending...' : 'Send' }
+            {isLoading ? '...' : 'Enter' }
           </Button>
           </Stack>
           

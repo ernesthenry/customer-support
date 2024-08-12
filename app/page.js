@@ -27,21 +27,9 @@ return (
     >
         
     <Box 
-    
         display= "flex"
-        
         alignItems= "flex-end"
-       
-        
-        
-      
-       
-
- 
     >
-       
-
-       
         <Typography variant='h4'
         component='span'
        
@@ -102,7 +90,6 @@ return (
             top:'428px',
             
         }}
-        
         >
             Get instant support
         </Typography>
